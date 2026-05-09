@@ -11,7 +11,7 @@ void report_error(SourceLocation location, const char *message){
             message);
 }
 
-void report_error(SourceLocation location, const char *message){
+void report_warning(SourceLocation location, const char *message){
     fprintf(stderr,
             "%s, %d, %d: warning %s\n",
             location.filename,
