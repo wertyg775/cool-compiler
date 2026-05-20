@@ -10,7 +10,10 @@ int main(void){
 
     Token token = lexer_next_token(&lexer);
 
-    printf("%s\n", token_type_name(token.type));
+    printf("% '%.*s'\n", 
+        token_type_name(token.type),
+        token.length,
+        token.start);
 
     return 0;
 
