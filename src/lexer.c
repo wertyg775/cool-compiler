@@ -9,6 +9,10 @@ void lexer_init(Lexer *lexer, const char *source){
 
 Token lexer_next_token(Lexer *lexer) {
     Token token;
+    while (lexer->current[0] == ' '){
+        lexer->current += 1;
+        lexer->column += 1;
+    }
 
     token.start = lexer->current;
     token.line = lexer->line;
@@ -31,6 +35,20 @@ Token lexer_next_token(Lexer *lexer) {
 
             lexer->current += 5;
             lexer->column += 5;
+
+            return token;
+        }
+    
+    if (lexer->current[0] == 'M' &&
+        lexer->current[1] == 'a' &&
+        lexer->current[2] == 'i' &&
+        lexer->current[3] == 'n') {
+
+            token.type = TOKEN_TYPE_IDENTIFIER;
+            token.length = 4;
+
+            lexer->current += 4;
+            lexer->column += 4;
 
             return token;
         }
