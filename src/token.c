@@ -8,6 +8,8 @@ const char *token_type_name(TokenType type) {
             return "TOKEN_CLASS";
         case TOKEN_TYPE_IDENTIFIER:
             return "TOKEN_TYPE_IDENTIFIER";
+        case TOKEN_OBJECT_IDENTIFIER:
+            return "TOKEN_OBJECT_IDENTIFIER";
         case TOKEN_LBRACE:
             return "TOKEN_LBRACE";
         case TOKEN_RBRACE:

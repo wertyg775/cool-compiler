@@ -10,7 +10,7 @@ void lexer_init(Lexer *lexer, const char *source){
 
 Token lexer_next_token(Lexer *lexer) {
     Token token;
-    while (lexer->current[0] == ' ' || '\n'){
+    while (lexer->current[0] == ' ' || lexer->current[0]){
         lexer->current += 1;
         lexer->column += 1;
     }
@@ -25,34 +25,37 @@ Token lexer_next_token(Lexer *lexer) {
         return token;
     }
 
-    if (lexer->current[0] == 'c' &&
-        lexer->current[1] == 'l' &&
-        lexer->current[2] == 'a' &&
-        lexer->current[3] == 's' &&
-        lexer->current[4] == 's') {
+    if (is_alpha(lexer->current[0])){
+        const char *start = lexer->current;
+        int start_column = lexer->column;
+
+        while (is_alnum(lexer->current[0]) ||
+               lexer->current[0] == '_') {
+            lexer->current += 1;
+            lexer->column += 1;
+               }
         
+        int length = lexer->current - start;
+
+        if (length == 5 && starts_with(start, "class")) {
             token.type = TOKEN_CLASS;
-            token.length = 5;
-
-            lexer->current += 5;
-            lexer->column += 5;
+            token.length = length;
 
             return token;
         }
-    
-    if (lexer->current[0] == 'M' &&
-        lexer->current[1] == 'a' &&
-        lexer->current[2] == 'i' &&
-        lexer->current[3] == 'n') {
 
+        if (is_uppercase(start[0])) {
             token.type = TOKEN_TYPE_IDENTIFIER;
-            token.length = 4;
-
-            lexer->current += 4;
-            lexer->column += 4;
+            token.length = length;
 
             return token;
         }
+
+        token.type = TOKEN_OBJECT_IDENTIFIER;
+        token.length = length;
+
+        return token;
+    }
     
     if (lexer->current[0] == '{'){
         token.type = TOKEN_LBRACE;
