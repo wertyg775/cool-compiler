@@ -1,4 +1,5 @@
 #include "lexer.h"
+#include <ctype.h>
 
 void lexer_init(Lexer *lexer, const char *source){
     lexer->source = source;
@@ -9,7 +10,7 @@ void lexer_init(Lexer *lexer, const char *source){
 
 Token lexer_next_token(Lexer *lexer) {
     Token token;
-    while (lexer->current[0] == ' '){
+    while (lexer->current[0] == ' ' || '\n'){
         lexer->current += 1;
         lexer->column += 1;
     }
@@ -52,6 +53,26 @@ Token lexer_next_token(Lexer *lexer) {
 
             return token;
         }
+    
+    if (lexer->current[0] == '{'){
+        token.type = TOKEN_LBRACE;
+        token.length = 1;
+
+        lexer->current += 1;
+        lexer->column += 1;
+
+        return token;
+    }
+
+    if (lexer->current[0] == '}'){
+        token.type = TOKEN_RBRACE;
+        token.length = 1;
+
+        lexer->current += 1;
+        lexer->column += 1;
+
+        return token;
+    }
     
     token.type = TOKEN_ERROR;
     token.length = 1;
