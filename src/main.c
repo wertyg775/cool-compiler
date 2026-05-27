@@ -3,7 +3,7 @@
 #include "token.h"
 
 int main(void){
-    const char *source = "class Main {}";
+    const char *source = "class Main { \n Token }";
 
     Lexer lexer;
     lexer_init(&lexer, source);

@@ -1,5 +1,6 @@
 #include "lexer.h"
 #include <ctype.h>
+#include <string.h>
 
 void lexer_init(Lexer *lexer, const char *source){
     lexer->source = source;
@@ -25,11 +26,11 @@ Token lexer_next_token(Lexer *lexer) {
         return token;
     }
 
-    if (is_alpha(lexer->current[0])){
+    if (isalpha(lexer->current[0])){
         const char *start = lexer->current;
         int start_column = lexer->column;
 
-        while (is_alnum(lexer->current[0]) ||
+        while (isalnum(lexer->current[0]) ||
                lexer->current[0] == '_') {
             lexer->current += 1;
             lexer->column += 1;
@@ -37,14 +38,14 @@ Token lexer_next_token(Lexer *lexer) {
         
         int length = lexer->current - start;
 
-        if (length == 5 && starts_with(start, "class")) {
+        if (length == 5 && strncmp(start, "class", 5) == 0) {
             token.type = TOKEN_CLASS;
             token.length = length;
 
             return token;
         }
 
-        if (is_uppercase(start[0])) {
+        if (isupper(start[0])) {
             token.type = TOKEN_TYPE_IDENTIFIER;
             token.length = length;
 
