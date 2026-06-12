@@ -76,6 +76,16 @@ Token lexer_next_token(Lexer *lexer) {
 
         return token;
     }
+
+    if (lexer->current[0] == ';'){
+        token.type = TOKEN_SEMICOLON;
+        token.length = 1;
+
+        lexer-> current += 1;
+        lexer-> column += 1;
+
+        return token;
+    }
     
     token.type = TOKEN_ERROR;
     token.length = 1;
