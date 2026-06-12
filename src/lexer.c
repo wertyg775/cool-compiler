@@ -11,7 +11,7 @@ void lexer_init(Lexer *lexer, const char *source){
 
 Token lexer_next_token(Lexer *lexer) {
     Token token;
-    while (lexer->current[0] == ' ' || lexer->current[0]){
+    while (lexer->current[0] == ' ' || lexer->current[0] == '\n'){
         lexer->current += 1;
         lexer->column += 1;
     }
@@ -28,13 +28,12 @@ Token lexer_next_token(Lexer *lexer) {
 
     if (isalpha(lexer->current[0])){
         const char *start = lexer->current;
-        int start_column = lexer->column;
 
         while (isalnum(lexer->current[0]) ||
                lexer->current[0] == '_') {
             lexer->current += 1;
             lexer->column += 1;
-               }
+               }    
         
         int length = lexer->current - start;
 
