@@ -86,8 +86,51 @@ Token lexer_next_token(Lexer *lexer) {
         return token;
     }
 
-    if (lexer->current[0] == '<' && lexer->current[1] == '='){
+    if (lexer->current[0] == '<'){
+        if(lexer->current[1] == '='){
+            token.type = TOKEN_LE;
+            token.length = 2;
+        }
+        else if(lexer->current[1] == '-'){
+            token.type = TOKEN_ASSIGN;
+            token.length = 2;
+        }
+        else {
+            token.type = TOKEN_LT;
+            token.length = 1;
+        }
+        lexer->current += token.length;
+        lexer->column += token.length;
         
+        return token;
+    }
+
+    if (lexer->current[0] == '='){
+        if (lexer->current[1] == '>'){
+            token.type = TOKEN_DARROW;
+            token.length = 2;
+        }
+        else {
+            token.type = TOKEN_EQUAL;
+            token.length = 1;
+        }
+        lexer->current += token.length;
+        lexer->column += token.length;
+
+        return token;
+    }
+
+    if (lexer->current[0] == '>'){
+        if(lexer->current[1] == '='){
+            token.type = TOKEN_ME;
+            token.length = 2;
+        }
+        else{
+            token.type = TOKEN_MT;
+            token.length = 1;
+        }
+        lexer->current += token.length;
+        lexer->column += token.length;
     }
     
     token.type = TOKEN_ERROR;

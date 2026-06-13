@@ -36,6 +36,18 @@ const char *token_type_name(TokenType type) {
             return "TOKEN_STAR";
         case TOKEN_SLASH:
             return "TOKEN_SLASH";
+        case TOKEN_LE:
+            return "TOKEN_LE";
+        case TOKEN_ME:
+            return "TOKEN_ME";
+        case TOKEN_ASSIGN:
+            return "TOKEN_ASSIGN";
+        case TOKEN_LT:
+            return "TOKEN_LT";
+        case TOKEN_MT:
+            return "TOKEN_MT";
+        case TOKEN_EQUAL:
+            return "TOKEN_EQUAL";
         case TOKEN_ERROR:
             return "TOKEN_ERROR";
         default:
