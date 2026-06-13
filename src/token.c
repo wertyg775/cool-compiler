@@ -10,6 +10,10 @@ const char *token_type_name(TokenType type) {
             return "TOKEN_TYPE_IDENTIFIER";
         case TOKEN_OBJECT_IDENTIFIER:
             return "TOKEN_OBJECT_IDENTIFIER";
+        case TOKEN_IF:
+            return "TOKEN_IF";
+        case TOKEN_ELSE:
+            return "TOKEN_ELSE";
         case INT_CONST:
             return "INT_CONST";
         case TOKEN_LBRACE:

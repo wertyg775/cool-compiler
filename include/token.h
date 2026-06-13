@@ -8,6 +8,9 @@ typedef enum {
     TOKEN_TYPE_IDENTIFIER,
     TOKEN_OBJECT_IDENTIFIER,
 
+    TOKEN_IF,
+    TOKEN_ELSE,
+
     INT_CONST,
 
     TOKEN_LBRACE, // {
@@ -25,11 +28,11 @@ typedef enum {
     TOKEN_MINUS, // -
     TOKEN_STAR, // *
     TOKEN_SLASH, // '/'
-    TOKEN_LE, //LESS OR EQUAL
-    TOKEN_ME,
+    TOKEN_LE, // <=
+    TOKEN_ME, // >=
     TOKEN_ASSIGN, // <-
     TOKEN_LT, // <
-    TOKEN_MT,
+    TOKEN_MT, // >
     TOKEN_EQUAL, // =
     TOKEN_DARROW, // =>
 

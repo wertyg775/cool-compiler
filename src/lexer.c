@@ -44,6 +44,7 @@ Token lexer_next_token(Lexer *lexer) {
         return token;
     }
 
+    // IDENTIFIER LOOP
     if (isalpha(lexer->current[0])){
         const char *start = lexer->current;
 
@@ -62,6 +63,16 @@ Token lexer_next_token(Lexer *lexer) {
             return token;
         }
 
+        if (length == 2 && strncmp(start, "if", 2) == 0){
+            token.type = TOKEN_IF;
+            token.length = length;
+        }
+
+        if (length == 4 && strncmp(start, "else", 4) == 0){
+            token.type = TOKEN_ELSE;
+            token.length = length;
+        }
+
         if (isupper(start[0])) {
             token.type = TOKEN_TYPE_IDENTIFIER;
             token.length = length;
@@ -75,6 +86,7 @@ Token lexer_next_token(Lexer *lexer) {
         return token;
     }
 
+    // INTEGER CONST LOOP
     if (isdigit(lexer->current[0])) {
         char *start = lexer->current[0];
         while(isdigit(lexer->current[0])){
