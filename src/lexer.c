@@ -2,6 +2,17 @@
 #include <ctype.h>
 #include <string.h>
 
+static const TokenType char_token_map[128] = {
+    ['{'] = TOKEN_LBRACE,
+    ['}'] = TOKEN_RBRACE,
+    ['['] = TOKEN_LBRACKET,
+    [']'] = TOKEN_RBRACKET,
+    [','] = TOKEN_COMMA,
+    [':'] = TOKEN_COLON,
+    ['.'] = TOKEN_DOT,
+    [';'] = TOKEN_SEMICOLON,
+};
+
 void lexer_init(Lexer *lexer, const char *source){
     lexer->source = source;
     lexer->current = source;
@@ -57,32 +68,12 @@ Token lexer_next_token(Lexer *lexer) {
         return token;
     }
     
-    if (lexer->current[0] == '{'){
-        token.type = TOKEN_LBRACE;
+    if (char_token_map[(unsigned char) lexer->current[0]]) {
+        token.type = char_token_map[(unsigned char) lexer->current[0]];
         token.length = 1;
 
         lexer->current += 1;
         lexer->column += 1;
-
-        return token;
-    }
-
-    if (lexer->current[0] == '}'){
-        token.type = TOKEN_RBRACE;
-        token.length = 1;
-
-        lexer->current += 1;
-        lexer->column += 1;
-
-        return token;
-    }
-
-    if (lexer->current[0] == ';'){
-        token.type = TOKEN_SEMICOLON;
-        token.length = 1;
-
-        lexer-> current += 1;
-        lexer-> column += 1;
 
         return token;
     }
