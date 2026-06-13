@@ -74,6 +74,18 @@ Token lexer_next_token(Lexer *lexer) {
 
         return token;
     }
+
+    if (isdigit(lexer->current[0])) {
+        char *start = lexer->current[0];
+        while(isdigit(lexer->current[0])){
+            lexer->current += 1;
+            lexer->column += 1;
+        }
+        int length = lexer->current - start;
+
+        token.type = INT_CONST;
+        token.length = length;
+    }
     
     // SINGLE CHAR 
     if (char_token_map[(unsigned char) lexer->current[0]]) {
@@ -86,6 +98,7 @@ Token lexer_next_token(Lexer *lexer) {
         return token;
     }
 
+    // LESS , EQUAL , MORE OPERATORS
     if (lexer->current[0] == '<'){
         if(lexer->current[1] == '='){
             token.type = TOKEN_LE;

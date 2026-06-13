@@ -8,6 +8,8 @@ typedef enum {
     TOKEN_TYPE_IDENTIFIER,
     TOKEN_OBJECT_IDENTIFIER,
 
+    INT_CONST,
+
     TOKEN_LBRACE, // {
     TOKEN_RBRACE, // }
     TOKEN_LBRACKET, // [
