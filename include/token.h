@@ -15,7 +15,14 @@ typedef enum {
     TOKEN_COMMA,
     TOKEN_COLON,
     TOKEN_DOT,  
+    TOKEN_AT,
+    TOKEN_TILDE,
     TOKEN_SEMICOLON,
+
+    TOKEN_PLUS,
+    TOKEN_MINUS,
+    TOKEN_STAR,
+    TOKEN_SLASH,
 
     TOKEN_ERROR  
 } TokenType;

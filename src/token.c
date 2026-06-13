@@ -22,8 +22,20 @@ const char *token_type_name(TokenType type) {
             return "TOKEN_COMMA";
         case TOKEN_DOT:
             return "TOKEN_DOT";
+        case TOKEN_AT:
+            return "TOKEN_AT";
+        case TOKEN_TILDE:
+            return "TOKEN_TILDE";
         case TOKEN_SEMICOLON:
             return "TOKEN_SEMICOLON";
+        case TOKEN_PLUS:
+            return "TOKEN_PLUS";
+        case TOKEN_MINUS:
+            return "TOKEN_MINUS";
+        case TOKEN_STAR:
+            return "TOKEN_STAR";
+        case TOKEN_SLASH:
+            return "TOKEN_SLASH";
         case TOKEN_ERROR:
             return "TOKEN_ERROR";
         default:

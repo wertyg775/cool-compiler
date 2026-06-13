@@ -10,7 +10,14 @@ static const TokenType char_token_map[128] = {
     [','] = TOKEN_COMMA,
     [':'] = TOKEN_COLON,
     ['.'] = TOKEN_DOT,
+    ['@'] = TOKEN_AT,
+    ['~'] = TOKEN_TILDE,
     [';'] = TOKEN_SEMICOLON,
+
+    ['+'] = TOKEN_PLUS,
+    ['-'] = TOKEN_MINUS,
+    ['*'] = TOKEN_STAR,
+    ['/'] = TOKEN_SLASH,
 };
 
 void lexer_init(Lexer *lexer, const char *source){
@@ -68,6 +75,7 @@ Token lexer_next_token(Lexer *lexer) {
         return token;
     }
     
+    // SINGLE CHAR 
     if (char_token_map[(unsigned char) lexer->current[0]]) {
         token.type = char_token_map[(unsigned char) lexer->current[0]];
         token.length = 1;
@@ -76,6 +84,10 @@ Token lexer_next_token(Lexer *lexer) {
         lexer->column += 1;
 
         return token;
+    }
+
+    if (lexer->current[0] == '<' && lexer->current[1] == '='){
+        
     }
     
     token.type = TOKEN_ERROR;
