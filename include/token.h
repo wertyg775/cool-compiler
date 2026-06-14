@@ -27,6 +27,7 @@ typedef enum {
     TOKEN_BOOL_CONST,
 
     INT_CONST,
+    STR_CONST,
 
     TOKEN_LBRACE, // {
     TOKEN_RBRACE, // }
@@ -44,10 +45,10 @@ typedef enum {
     TOKEN_STAR, // *
     TOKEN_SLASH, // '/'
     TOKEN_LE, // <=
-    TOKEN_ME, // >=
+    TOKEN_GE, // >=
     TOKEN_ASSIGN, // <-
     TOKEN_LT, // <
-    TOKEN_MT, // >
+    TOKEN_GT, // >
     TOKEN_EQUAL, // =
     TOKEN_DARROW, // =>
 

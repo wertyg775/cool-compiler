@@ -46,6 +46,8 @@ const char *token_type_name(TokenType type) {
             return "TOKEN_BOOL_CONST";
         case INT_CONST:
             return "INT_CONST";
+        case STR_CONST:
+            return "STR_CONST";
         case TOKEN_LBRACE:
             return "TOKEN_LBRACE";
         case TOKEN_RBRACE:
@@ -74,14 +76,14 @@ const char *token_type_name(TokenType type) {
             return "TOKEN_SLASH";
         case TOKEN_LE:
             return "TOKEN_LE";
-        case TOKEN_ME:
-            return "TOKEN_ME";
+        case TOKEN_GE:
+            return "TOKEN_GE";
         case TOKEN_ASSIGN:
             return "TOKEN_ASSIGN";
         case TOKEN_LT:
             return "TOKEN_LT";
-        case TOKEN_MT:
-            return "TOKEN_MT";
+        case TOKEN_GT:
+            return "TOKEN_GT";
         case TOKEN_EQUAL:
             return "TOKEN_EQUAL";
         case TOKEN_ERROR:

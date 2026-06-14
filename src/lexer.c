@@ -84,7 +84,7 @@ Token lexer_next_token(Lexer *lexer) {
 
         for (int i = 0; i < ARRAY_LEN(keywords); i++){
             
-            if (length == keywords[i].length || strncmp(start, keywords[i].word, keywords[i].length) == 0){
+            if (length == keywords[i].length && strncmp(start, keywords[i].word, keywords[i].length) == 0){
                 token.type = keywords[i].type;
                 token.length = length;
 
@@ -107,7 +107,7 @@ Token lexer_next_token(Lexer *lexer) {
 
     // INTEGER CONST LOOP
     if (isdigit(lexer->current[0])) {
-        char *start = lexer->current[0];
+        const char *start = lexer->current;
         while(isdigit(lexer->current[0])){
             lexer->current += 1;
             lexer->column += 1;
@@ -116,6 +116,8 @@ Token lexer_next_token(Lexer *lexer) {
 
         token.type = INT_CONST;
         token.length = length;
+
+        return token;
     }
     
     // SINGLE CHAR 
@@ -129,7 +131,38 @@ Token lexer_next_token(Lexer *lexer) {
         return token;
     }
 
-    // LESS , EQUAL , MORE OPERATORS
+    // STRING LITERAL
+    if (lexer->current[0] == '"') {
+        const char *start = lexer->current;
+        lexer->current += 1;
+        lexer->column += 1;
+        int unterminated = 0;
+        while(lexer->current[0] != '"'){
+            if(lexer->current[0] == '\0'){
+                unterminated = 1;
+                break;
+            }
+            lexer->current += 1;
+            lexer->column += 1;
+        }
+        if (unterminated){
+            token.type = TOKEN_ERROR;
+            token.length = lexer->current - start;
+
+            return token;
+        }
+        else{
+            lexer->current += 1;
+            lexer->column += 1;
+
+            token.type = STR_CONST;
+            token.length = lexer->current - start;
+
+            return token;
+        }
+    }
+
+    // LESS , EQUAL , GREATER OPERATORS
     if (lexer->current[0] == '<'){
         if(lexer->current[1] == '='){
             token.type = TOKEN_LE;
@@ -166,11 +199,11 @@ Token lexer_next_token(Lexer *lexer) {
 
     if (lexer->current[0] == '>'){
         if(lexer->current[1] == '='){
-            token.type = TOKEN_ME;
+            token.type = TOKEN_GE;
             token.length = 2;
         }
         else{
-            token.type = TOKEN_MT;
+            token.type = TOKEN_GT;
             token.length = 1;
         }
         lexer->current += token.length;
