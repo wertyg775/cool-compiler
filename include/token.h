@@ -10,6 +10,21 @@ typedef enum {
 
     TOKEN_IF,
     TOKEN_ELSE,
+    TOKEN_FI,
+    TOKEN_IN,
+    TOKEN_INHERITS,
+    TOKEN_ISVOID,
+    TOKEN_LET,
+    TOKEN_LOOP,
+    TOKEN_POOL,
+    TOKEN_THEN,
+    TOKEN_WHILE,
+    TOKEN_CASE,
+    TOKEN_ESAC,
+    TOKEN_NEW,
+    TOKEN_OF,
+    TOKEN_NOT,
+    TOKEN_BOOL_CONST,
 
     INT_CONST,
 

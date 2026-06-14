@@ -20,6 +20,32 @@ static const TokenType char_token_map[128] = {
     ['/'] = TOKEN_SLASH,
 };
 
+static const struct {
+    const char *word;
+    int         length;
+    TokenType   type;
+} keywords[] = {
+    { "class",    5, TOKEN_CLASS    },
+    { "else",     4, TOKEN_ELSE     },
+    { "fi",       2, TOKEN_FI       },
+    { "if",       2, TOKEN_IF       },
+    { "in",       2, TOKEN_IN       },
+    { "inherits", 8, TOKEN_INHERITS },
+    { "isvoid",   6, TOKEN_ISVOID   },
+    { "let",      3, TOKEN_LET      },
+    { "loop",     4, TOKEN_LOOP     },
+    { "pool",     4, TOKEN_POOL     },
+    { "then",     4, TOKEN_THEN     },
+    { "while",    5, TOKEN_WHILE    },
+    { "case",     4, TOKEN_CASE     },
+    { "esac",     4, TOKEN_ESAC     },
+    { "new",      3, TOKEN_NEW      },
+    { "of",       2, TOKEN_OF       },
+    { "not",      3, TOKEN_NOT      },
+    { "true",     4, TOKEN_BOOL_CONST },
+    { "false",    5, TOKEN_BOOL_CONST },
+};
+
 void lexer_init(Lexer *lexer, const char *source){
     lexer->source = source;
     lexer->current = source;
@@ -56,21 +82,14 @@ Token lexer_next_token(Lexer *lexer) {
         
         int length = lexer->current - start;
 
-        if (length == 5 && strncmp(start, "class", 5) == 0) {
-            token.type = TOKEN_CLASS;
-            token.length = length;
+        for (int i = 0; i < ARRAY_LEN(keywords); i++){
+            
+            if (length == keywords[i].length || strncmp(start, keywords[i].word, keywords[i].length) == 0){
+                token.type = keywords[i].type;
+                token.length = length;
 
-            return token;
-        }
-
-        if (length == 2 && strncmp(start, "if", 2) == 0){
-            token.type = TOKEN_IF;
-            token.length = length;
-        }
-
-        if (length == 4 && strncmp(start, "else", 4) == 0){
-            token.type = TOKEN_ELSE;
-            token.length = length;
+                return token;
+            }
         }
 
         if (isupper(start[0])) {

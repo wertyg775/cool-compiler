@@ -14,6 +14,36 @@ const char *token_type_name(TokenType type) {
             return "TOKEN_IF";
         case TOKEN_ELSE:
             return "TOKEN_ELSE";
+        case TOKEN_FI:
+            return "TOKEN_FI";
+        case TOKEN_IN:
+            return "TOKEN_IN";
+        case TOKEN_INHERITS:
+            return "TOKEN_INHERITS";
+        case TOKEN_ISVOID:
+            return "TOKEN_ISVOID";
+        case TOKEN_LET:
+            return "TOKEN_LET";
+        case TOKEN_LOOP:
+            return "TOKEN_LOOP";
+        case TOKEN_POOL:
+            return "TOKEN_POOL";
+        case TOKEN_THEN:
+            return "TOKEN_THEN";
+        case TOKEN_WHILE:
+            return "TOKEN_WHILE";
+        case TOKEN_CASE:
+            return "TOKEN_CASE";
+        case TOKEN_ESAC:
+            return "TOKEN_ESAC";
+        case TOKEN_NEW:
+            return "TOKEN_NEW";
+        case TOKEN_OF:
+            return "TOKEN_OF";
+        case TOKEN_NOT:
+            return "TOKEN_NOT";
+        case TOKEN_BOOL_CONST:
+            return "TOKEN_BOOL_CONST";
         case INT_CONST:
             return "INT_CONST";
         case TOKEN_LBRACE:
