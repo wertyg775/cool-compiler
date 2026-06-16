@@ -62,6 +62,8 @@ const char *token_type_name(TokenType type) {
             return "TOKEN_RPAREN";  
         case TOKEN_COMMA:
             return "TOKEN_COMMA";
+        case TOKEN_COLON:
+            return "TOKEN_COLON";
         case TOKEN_DOT:
             return "TOKEN_DOT";
         case TOKEN_AT:
@@ -90,6 +92,8 @@ const char *token_type_name(TokenType type) {
             return "TOKEN_GT";
         case TOKEN_EQUAL:
             return "TOKEN_EQUAL";
+        case TOKEN_DARROW:
+            return "TOKEN_DARROW";
         case TOKEN_ERROR:
             return "TOKEN_ERROR";
         default:
