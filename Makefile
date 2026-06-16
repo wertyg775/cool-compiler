@@ -3,3 +3,6 @@ coolc: src/main.c src/token.c src/lexer.c
 
 clean:
 	rm -f coolc
+
+test: coolc
+	./coolc | diff tests/lexer/counter.expected - 
