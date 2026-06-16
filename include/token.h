@@ -33,6 +33,8 @@ typedef enum {
     TOKEN_RBRACE, // }
     TOKEN_LBRACKET, // [
     TOKEN_RBRACKET, // ]
+    TOKEN_LPAREN, // (
+    TOKEN_RPAREN, // )
     TOKEN_COMMA, // ,
     TOKEN_COLON, // :
     TOKEN_DOT,  // .

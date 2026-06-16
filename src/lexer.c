@@ -2,11 +2,15 @@
 #include <ctype.h>
 #include <string.h>
 
+#define ARRAY_LEN(arr) (sizeof(arr) / sizeof((arr)[0]))
+
 static const TokenType char_token_map[128] = {
     ['{'] = TOKEN_LBRACE,
     ['}'] = TOKEN_RBRACE,
     ['['] = TOKEN_LBRACKET,
     [']'] = TOKEN_RBRACKET,
+    ['('] = TOKEN_LPAREN,
+    [')'] = TOKEN_RPAREN,
     [','] = TOKEN_COMMA,
     [':'] = TOKEN_COLON,
     ['.'] = TOKEN_DOT,
@@ -56,8 +60,14 @@ void lexer_init(Lexer *lexer, const char *source){
 Token lexer_next_token(Lexer *lexer) {
     Token token;
     while (lexer->current[0] == ' ' || lexer->current[0] == '\n'){
+        if(lexer->current[0] == '\n') {
+            lexer->line += 1;
+            lexer->column = 1;
+        }
+        else {
+            lexer->column += 1;
+        }
         lexer->current += 1;
-        lexer->column += 1;
     }
 
     token.start = lexer->current;
@@ -208,6 +218,8 @@ Token lexer_next_token(Lexer *lexer) {
         }
         lexer->current += token.length;
         lexer->column += token.length;
+
+        return token;
     }
     
     token.type = TOKEN_ERROR;
