@@ -59,19 +59,59 @@ void lexer_init(Lexer *lexer, const char *source){
 
 Token lexer_next_token(Lexer *lexer) {
     Token token;
-    while (lexer->current[0] == ' ' || lexer->current[0] == '\n'){
-        if(lexer->current[0] == '\n') {
-            lexer->line += 1;
-            lexer->column = 1;
+    for (;;) {
+        // whitespace
+        while (lexer->current[0] == ' ' || lexer->current[0] == '\t' || lexer->current[0] == '\n') {
+            if (lexer->current[0] == '\n') { lexer->line++; lexer->column = 1; }
+            else { lexer->column++; }
+            lexer->current++;
         }
-        else {
-            lexer->column += 1;
+
+        // line comment: -- to end of line
+        if (lexer->current[0] == '-' && lexer->current[1] == '-') {
+            while (lexer->current[0] != '\n' && lexer->current[0] != '\0') {
+                lexer->current++;
+                lexer->column++;
+            }
+            continue;
         }
-        lexer->current += 1;
+
+        // block comment: (* ... *) with nesting
+        if (lexer->current[0] == '(' && lexer->current[1] == '*') {
+            lexer->current += 2;
+            lexer->column  += 2;
+            int depth = 1;
+            while (depth > 0) {
+                if (lexer->current[0] == '\0') {
+                    token.start  = lexer->current;
+                    token.line   = lexer->line;
+                    token.column = lexer->column;
+                    token.type   = TOKEN_ERROR;
+                    token.length = 0;
+                    return token;
+                }
+                if (lexer->current[0] == '(' && lexer->current[1] == '*') {
+                    depth++;
+                    lexer->current += 2;
+                    lexer->column  += 2;
+                } else if (lexer->current[0] == '*' && lexer->current[1] == ')') {
+                    depth--;
+                    lexer->current += 2;
+                    lexer->column  += 2;
+                } else {
+                    if (lexer->current[0] == '\n') { lexer->line++; lexer->column = 1; }
+                    else { lexer->column++; }
+                    lexer->current++;
+                }
+            }
+            continue;
+        }
+
+        break;
     }
 
-    token.start = lexer->current;
-    token.line = lexer->line;
+    token.start  = lexer->current;
+    token.line   = lexer->line;
     token.column = lexer->column;
 
     if (lexer->current[0] == '\0') {
