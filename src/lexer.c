@@ -152,6 +152,19 @@ Token lexer_next_token(Lexer *lexer) {
                 unterminated = 1;
                 break;
             }
+            if(lexer->current[0] == '\n'){
+                unterminated = 1;
+                break;
+            }
+            if(lexer->current[0] == '\\'){
+                if(lexer->current[1] == '\0'){
+                    unterminated = 1;
+                    break;
+                }
+                lexer->current += 2;
+                lexer->column += 2;
+                continue;
+            }
             lexer->current += 1;
             lexer->column += 1;
         }
