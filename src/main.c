@@ -1,23 +1,24 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "lexer.h"
 #include "token.h"
 
 int main(int argc, char* argv[]){ //argc is the number of args, if argc = 1, only program name was given (./coolc)
-    if (argc < 2){
-        fprintf(stderr, "error: no input file given\n");
+    if (argc > 2) {
+        fprintf(stderr, "error: no input file given");
         return 1;
     }
 
-    FILE *fp = fopen(argv[1], "r");
+    FILE *fp = fopen(argv[1], "r"); // argv is filename, "r" means read
     if (fp == NULL){
-        fprintf(stderr, "error: cannot open file '%s'\n", argv[1]);
+        fprintf(stderr, "error: can't open file '%s'\n", argv[1]);
         return 1;
     }
-    fseek(fp, 0, SEEK_END); // move pointer to end of byte
-    long size = ftell(fp); // if fp has 5 bytes, fseek above sets pointer/cursor to end of file. ftell returns position of fseek which indirectly gets the size
-    fseek(fp, 0, SEEK_SET); // resets fp beginning of file
+    fseek(fp, 0, SEEK_END);
+    long size = ftell(fp);
+    fseek(fp, 0, SEEK_SET);
 
-    char *buffer = malloc(size +1);
+    char *buffer = malloc(size + 1);
 
     fread(buffer, 1, size, fp);
     buffer[size] = '\0';
