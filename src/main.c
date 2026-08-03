@@ -51,7 +51,7 @@ int main(int argc, char* argv[]){ //argc is the number of args, if argc = 1, onl
                 token.start);
 
             if (token.type == TOKEN_EOF){
-                return 0;
+                break;
             }  
         }
     }
