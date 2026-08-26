@@ -3,6 +3,7 @@
 #include <string.h>
 #include "lexer.h"
 #include "token.h"
+#include "parser.h"
 
 int main(int argc, char* argv[]){ //argc is the number of args, if argc = 1, only program name was given (./coolc)
     if (argc < 2) {
@@ -38,7 +39,7 @@ int main(int argc, char* argv[]){ //argc is the number of args, if argc = 1, onl
 
     Lexer lexer;
     lexer_init(&lexer, buffer);
-    
+
     if (print_tokens == 1){
         while(1) {
             Token token = lexer_next_token(&lexer);
@@ -53,6 +54,17 @@ int main(int argc, char* argv[]){ //argc is the number of args, if argc = 1, onl
             if (token.type == TOKEN_EOF){
                 break;
             }  
+        }
+    }
+
+    else {
+        Parser parser;
+        parser_init(&parser, &lexer);
+        if (parse_class(&parser)) {
+            printf("parse ok\n");
+        } else {
+            free(buffer);
+            return 1;
         }
     }
 
