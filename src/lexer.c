@@ -131,8 +131,8 @@ Token lexer_next_token(Lexer *lexer) {
                }    
         
         int length = lexer->current - start;
-
-        for (int i = 0; i < ARRAY_LEN(keywords); i++){
+ 
+        for (size_t i = 0; i < ARRAY_LEN(keywords); i++){
             
             if (length == keywords[i].length && strncmp(start, keywords[i].word, keywords[i].length) == 0){
                 token.type = keywords[i].type;
